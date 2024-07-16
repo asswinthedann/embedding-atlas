@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Accounts</title>
+<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#accNum').on('click', function() {
+                $.ajax({
+                    url: '/accountSelection',
+                    method: 'GET',
+                    success: function(data) {
+                        $('#accNum').empty();
+                        $.each(data, function(index, value) {
+                            $('#accNum').append('<option value="' + value + '">' + value + '</option>');
+                            console.log($('#accNum'))
+                        });
+                    },
+                    error: function() {
+                        alert('Failed to fetch account numbers');
+                    }
+                });
+            });
+        });
+    </script> -->
+</head>
+<body>
+
+	<div>
+		<form action="/createAcc" method="post">
+			<label for="">Account Name</label> <input type="text" id="name"
+				name="name" required><br>
+			<br> <label for="email">E-Mail</label> <input type="email"
+				id="email" name="email" required><br>
+			<br> <label for="pass">Password</label> <input type="text"
+				id="pass" name="pass" required><br>
+			<br> <label for="desc">Description</label> <input type="text"
+				id="desc" name="desc" required><br>
+			<br>
+			<button type="submit">Create Account</button>
+
+		</form>
+
+		<h3 th:text="${accMsg}"></h3>
+
+	</div>
+	<br>
+	<br>
+
+
+	<div>
+		<form action="/transact" method="post">
+			<label for="accNum">Choose the Account Number</label> <input
+				type="number" name="accNum" id="accNum"> <label for="typ">Choose
+				Transaction Type</label> <select id="type" name="type">
+				<option value="Dr">Debit</option>
+				<option value="Cr">Credit</option>
+			</select><br>
+			<br> <label for="src">Source</label> <input type="text" id="src"
+				name="src"><br>
+			<br> <label for="amt">Amount</label> <input type="number"
+				id="amt" name="amt" required><br>
+			<br> <label for="desc">Description</label> <input type="text"
+				id="desc" name="desc"><br>
+			<br>
+
+			<button type="submit">Add Transaction</button>
+		</form>
+	</div>
+
+	<h3 th:text="${transMsg}"></h3>
+	<br>
+	<br>
+
+	<div>
+		<form action="/getBal">
+			<label id="accNum">Enter Account Number</label> <input type="number"
+				name="accNum" id="accNum">
+			<button type="submit">Get balance</button>
+		</form>
+		<h2 th:text="${balance}"></h2>
+	</div>
+	<br>
+	<br>
+
+	<div>
+		<form action="/getAcc">
+			<button type="submit">Get All Accounts</button>
+
+		</form>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Account Name</th>
+						<th>Account Number</th>
+						<th>Email ID</th>
+						<th>Description</th>
+						<th>Account Balance</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="acc : ${account}">
+						<td th:text="${acc.accName}"></td>
+						<td th:text="${acc.accNum}"></td>
+						<td th:text="${acc.email}"></td>
+						<td th:text="${acc.description}"></td>
+						<td th:text="${acc.accBalance}"></td>
+
+
+					</tr>
+				</tbody>
+			</table>
+
+
+
+		</div>
+	</div>
+
+
+	<div>
+		<form action="/getTodaysTrans">
+			<label>Get Todays Transactions</label>
+			<button type="submit">Get</button>
+		</form>
+	</div>
+	<br>
+	<br>
+	<div>
+		<h2>Get Transaction</h2>
+		<form action="/getTransByDate">
+			<label for="date">Select Date</label> <input type="date" name="date"
+				id="date">
+			<button type="submit">Get</button>
+		</form>
+		<br>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Transaction ID</th>
+						<th>Account Number</th>
+						<th>Transaction Type</th>
+						<th>Source</th>
+						<th>Amount</th>
+						<th>Date</th>
+						<th>Description</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="trans : ${transactions}">
+						<td th:text="${trans.transId}"></td>
+						<td th:text="${trans.accNum}"></td>
+						<td th:text="${trans.transType}"></td>
+						<td th:text="${trans.source}"></td>
+						<td th:text="${trans.amount}"></td>
+						<td th:text="${trans.date}"></td>
+						<td th:text="${trans.description}"></td>
+
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+
+
+
+</body>
+</html>

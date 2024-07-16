@@ -1,0 +1,409 @@
+<!-- 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Bookings Page</title>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background styles */
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+			background-color: #f0f2f5;
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* No repeating of background */
+            margin: 0;
+            padding: 0;
+            height: 130vh; /* Adjusted height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+<body>
+
+	<h2>Login Form</h2>
+	<form action="bookSlot" method="post">
+		<label for="name">Enter Name:</label> <input type="text" id="name"
+			name="name" required> <br> <br> <label for="teamId">Enter
+			Team Id:</label> <input type="number" id="teamId" name="teamId" required>
+		<br> <br> <label for="number">Number:</label> <input
+			type="text" id="number" name="number" required> <br> <br>
+		<label for="email">Email:</label> <input type="text" id="email"
+			name="email" required> <br> <br> <label for="date">Date:</label>
+		<input type="date" id="date" name="date"> <br> <br>
+		<label for="entryTime">Entry Time:</label> <input type="time"
+			id="entryTime" name="entryTime"> <br> <br> <label
+			for="exitTime">Exit Time:</label> <input type="time" id="exitTime"
+			name="exitTime"> <br> <br>
+		<button type="submit">Book A SLOT !</button>
+	</form>
+
+	<div>
+
+		<h4 th:text="${alreadyBooked}">Slot is Booked already</h4>
+	</div>
+
+	<div>
+
+		<h4>Upcoming Booked Slots</h4>
+		<table>
+			<thead>
+				<tr>
+					<th>Sl.No</th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Date</th>
+					<th>Entry</th>
+					<th>Exit</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="slot : ${slots}">
+					<td th:text="${slot.sNo }"></td>
+					<td th:text="${slot.teamId }"></td>
+					<td th:text="${slot.name }"></td>
+					<td th:text="${slot.email }"></td>
+					<td th:text="${slot.number }"></td>
+					<td th:text="${slot.date }"></td>
+					<td th:text="${slot.entryTime }"></td>
+					<td th:text="${slot.exitTime }"></td>
+					<td th:text="${slot.status }"></td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+
+	<div>
+		<h2>Get Bookings by Date</h2>
+		<form action="/getBookingsByDate">
+			<label for="date">Select date</label> <input type="date" name="date"
+				id="date">
+			<button type="submit">get Bookings</button>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>Sl.No</th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Date</th>
+					<th>Entry</th>
+					<th>Exit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="slot : ${bookedSlots}">
+					<td th:text="${slot.sNo }"></td>
+					<td th:text="${slot.teamId }"></td>
+					<td th:text="${slot.name }"></td>
+					<td th:text="${slot.email }"></td>
+					<td th:text="${slot.number }"></td>
+					<td th:text="${slot.date }"></td>
+					<td th:text="${slot.entryTime }"></td>
+					<td th:text="${slot.exitTime }"></td>
+				</tr>
+			</tbody>
+
+		</table>
+
+
+	</div>
+
+	<div>
+		<h6>Clear Bookings</h6>
+		<form action="/delById">
+			<label for="id">Enter ID</label> <input type="number" class="id"
+				name="id">
+			<button type="submit">Delete ID</button>
+			<p th:text=${deleted}></p>
+		</form>
+	</div>
+
+
+	<div>
+		<form action="/getAll">
+
+			<button type="submit">Get All Booked Data</button>
+		</form>
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background styles */
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+			background-color: #f0f2f5;
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* No repeating of background */
+            margin: 0;
+            padding: 0;
+            height: 130vh; /* Adjusted height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2>Login Form</h2>
+                    <form action="bookSlot" method="post">
+                        <div class="form-group">
+                            <label for="name">Enter Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teamId">Enter Team Id:</label>
+                            <input type="number" id="teamId" name="teamId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Number:</label>
+                            <input type="text" id="number" name="number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="entryTime">Entry Time:</label>
+                            <input type="time" id="entryTime" name="entryTime" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exitTime">Exit Time:</label>
+                            <input type="time" id="exitTime" name="exitTime" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Book A Slot!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4 class="text-primary mb-3">Slot is Booked already</h4>
+                        <p th:text="${alreadyBooked}" class="text-muted"></p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="text-primary mb-3">Upcoming Booked Slots</h4>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sl.No</th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Date</th>
+                                    <th>Entry</th>
+                                    <th>Exit</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="slot : ${slots}">
+                                    <td th:text="${slot.sNo}"></td>
+                                    <td th:text="${slot.teamId}"></td>
+                                    <td th:text="${slot.name}"></td>
+                                    <td th:text="${slot.email}"></td>
+                                    <td th:text="${slot.number}"></td>
+                                    <td th:text="${slot.date}"></td>
+                                    <td th:text="${slot.entryTime}"></td>
+                                    <td th:text="${slot.exitTime}"></td>
+                                    <td th:text="${slot.status}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-4">
+                        <h2 class="text-primary mb-3">Get Bookings by Date</h2>
+                        <form action="/getBookingsByDate" method="get">
+                            <div class="form-group">
+                                <label for="date">Select date:</label>
+                                <input type="date" id="date" name="date" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Get Bookings</button>
+                        </form>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="text-primary mb-3">Clear Bookings</h6>
+                        <form action="/delById" method="post">
+                            <div class="form-group">
+                                <label for="id">Enter ID:</label>
+                                <input type="number" id="id" name="id" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-block">Delete ID</button>
+                            <p th:text="${deleted}" class="mt-2 text-muted"></p>
+                        </form>
+                    </div>
+                    <div>
+                        <form action="/getAll" method="get">
+                            <button type="submit" class="btn btn-secondary btn-block">Get All Booked Data</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

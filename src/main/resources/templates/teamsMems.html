@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .btn-primary {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+<body>
+
+<div>
+
+<div>
+<form action="/regTeam" method="post">
+<h2>Team Registration</h2>
+<label for="tname" >Enter Team Name</label>
+<input type="text" id="tname" name="tname"  ><br><br>
+
+<label for="cap" >Team Lead Name</label>
+<input type="text" id="cap" name="cap"  ><br><br>
+
+<label for="email" >Enter Email</label>
+<input type="email" id="email" name="email"  ><br><br>
+
+<label for="color" >Team color</label>
+<input type="text" id="color" name="color"  ><br><br>
+
+<label for="num" >team Number</label>
+<input type="number" id="num" name="num"  ><br><br>
+
+<button type="submit" >Register team</button>
+
+</form>
+
+<h3 th:text="${regMsg}"></h3>
+
+</div>
+
+
+<div>
+<form action="/getAllTeams" method="post" >
+<button type="submit" >View Registered Teams</button>
+</form>
+
+<form action="/getTeamsByPoints">
+<button type="submit" >Sort By Points</button>
+</form>
+
+<h3></h3>
+
+<table>
+<thead>
+<tr>
+<th>Team Id</th>
+<th>Team Name</th>
+<th>Team Captain</th>
+<th>Email</th>
+<th>Team Color</th>
+<th>Team Number</th>
+<th>Team Points</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="team :${teamsByPoints}" >
+<td th:text="${team.teamId}" ></td>
+<td th:text="${team.teamName}" ></td>
+<td th:text="${team.teamLead}" ></td>
+<td th:text="${team.email}" ></td>
+<td th:text="${team.color}" ></td>
+<td th:text="${team.teamNumber}" ></td>
+<td th:text="${team.tPoints}" ></td>
+</tr>
+</tbody>
+
+
+<tbody>
+<tr th:each="team :${teams}" >
+<td th:text="${team.teamId}" ></td>
+<td th:text="${team.teamName}" ></td>
+<td th:text="${team.teamLead}" ></td>
+<td th:text="${team.email}" ></td>
+<td th:text="${team.color}" ></td>
+<td th:text="${team.teamNumber}" ></td>
+<td th:text="${team.tPoints}" ></td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+<div>
+<form action="/updatePoints">
+
+<label for="id" >ID</label>
+<input type="number" id="id" name="id"  ><br><br>
+
+<label for="points" >Points</label>
+<input type="number" id="points" name="points"  ><br><br>
+
+<button type="submit" >add points</button>
+</form>
+<h3 th:text="${addedMsg}" ></h3>
+</div>
+
+
+</div>
+
+<div>
+
+<form action="/regMems" method="post">
+<h2>Membership Registration</h2>
+<label for="name" >Enter Name</label>
+<input type="text" id="name" name="name"  ><br><br>
+
+<label for="dob" >Date of Birth</label>
+<input type="date" id="dob" name="dob"  ><br><br>
+
+<label for="region" >Place</label>
+<input type="text" id="region" name="region"  ><br><br>
+
+<label for="email" >E-Mail</label>
+<input type="email" id="email" name="email"  ><br><br>
+
+<label for="phone" >Phone Number</label>
+<input type="number" id="phone" name="phone"  ><br><br>
+
+<label for="address" >Address</label>
+<input type="text" id="address" name="address"  ><br><br>
+
+<label for="type" >Choose Membership Type</label>
+<select id="type" name="type">
+<option value="none">None</option>
+<option value="gold">Gold</option>
+<option value="platinum">Platinum</option>
+<option value="silver">Silver</option>
+<option value="diamond">Diamond</option>
+</select>
+<button type="submit" >Register</button>
+</form>
+
+<div>
+<h2 th:text=${memMsg} ></h2>
+</div>
+
+</div>
+
+<div>
+
+<form action="/showMems">
+<button type="submit" >Show All Members</button>
+</form>
+
+<div>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Age</th>
+<th>Region</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Address</th>
+<th>Loyalty</th>
+<th>Payments</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="mem :${mems}" >
+<td th:text="${mem.id}" ></td>
+<td th:text="${mem.name}" ></td>
+<td th:text="${mem.age}" ></td>
+<td th:text="${mem.region}" ></td>
+<td th:text="${mem.email}" ></td>
+<td th:text="${mem.phone}" ></td>
+<td th:text="${mem.address}" ></td>
+<td th:text="${mem.membershipType}" ></td>
+<td th:text="${mem.paymentReceived}" ></td>
+
+</tr>
+</tbody>
+
+</table>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
